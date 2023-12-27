@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save and Change Name</title>
+  <style>
+    /* Add some CSS styles to hide and show elements */
+   #changeNameForm, #loremIpsumPage, #loadingPage {
+      display: block;
+    }
+
+    #changeNameForm, #loremIpsumPage, #loadingPage {
+      display: none;
+    }
+  </style>
+</head>
+<script src="https://cdn.tailwindcss.com"></script>
+<body>
+
+  <div id="nameForm">
+    <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+      <img src="https://play.tailwindcss.com/img/beams.jpg" alt="" class="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+      <div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+      <div class="relative bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+        <div class="mx-auto max-w-md">
+          <h1 class="text-2xl font-bold text-black">Gacha Waifu Paling Gacor Kang!</h1>
+          <p class="text-sm mb-5">Sebelum adu hoki, isi namamu dulu</p>
+          <form onsubmit="return saveName();">
+            <label for="userName" class="text-md font-medium mt-12">Nama</label><br>
+            <input type="text" class="bg-slate-600 rounded-md h-8 text-white" id="userName" placeholder=" Isi nama mu." required />
+            <button type="submit" class="bg-slate-500 text-white w-20 h-8 text-extrabold rounded-md">Simpan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="changeNameForm">
+    <!-- GANTI NAMA -->
+    <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+      <img src="https://play.tailwindcss.com/img/beams.jpg" alt="" class="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+      <div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+      <div class="relative bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+        <div class="mx-auto max-w-md">
+          <h1 class="text-2xl font-bold text-black">Gacha Waifu Paling Gacor Kang!</h1>
+          <p class="text-sm mb-5">Ganti Nama disini</p>
+          <form onsubmit="return changeName();">
+            <label for="newUserName" class="text-md font-medium mt-12">Nama Baru</label><br>
+            <input type="text" class="bg-slate-600 rounded-md h-8 text-white" id="newUserName" placeholder=" Isi nama mu." required />
+            <button type="submit" class="bg-slate-500 text-white w-20 h-8 text-extrabold rounded-md">Simpan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loadingPage">
+    <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+      <img src="https://play.tailwindcss.com/img/beams.jpg" alt="" class="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+      <div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+      <div class="relative bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+        <div class="mx-auto max-w-md">
+          <h2 class="font-bold text-2xl">Finding the best waifu for you...</h2>
+          <p class="text-md">Waiting response...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loremIpsumPage">
+    <!-- RESULT -->
+  </div>
+
+  <script>
+    function saveName() {
+      // Get the user's name from the input field
+      var userName = document.getElementById('userName').value;
+
+      // Check if the name is not empty
+      if (userName.trim() !== '') {
+        // Save the name to localStorage
+        localStorage.setItem('user_name', userName);
+
+        // Show the loading page
+        document.getElementById('nameForm').style.display = 'none';
+        document.getElementById('changeNameForm').style.display = 'none';
+        document.getElementById('loremIpsumPage').style.display = 'none';
+        document.getElementById('loadingPage').style.display = 'block';
+
+        // Set a timer to display the final result after 5 seconds
+        setTimeout(showFinalResult, 5000);
+
+        // Alert the user that the name is saved (optional)
+        alert('Name saved successfully!');
+
+        // Return false to prevent the form from submitting
+        return false;
+      } else {
+        // Alert the user if the name is empty
+        alert('Please enter your name.');
+
+        // Return true to allow the form to submit
+        return true;
+      }
+    }
+
+    function changeName() {
+      // Get the new user's name from the input field
+      var newUserName = document.getElementById('newUserName').value;
+
+      // Check if the new name is not empty
+      if (newUserName.trim() !== '') {
+        // Save the new name to localStorage
+        localStorage.setItem('user_name', newUserName);
+
+        // Alert the user that the name is changed (optional)
+        alert('Name changed successfully!');
+
+        // Return false to prevent the form from submitting
+        return false;
+      } else {
+        // Alert the user if the new name is empty
+        alert('Please enter a new name.');
+
+        // Return true to allow the form to submit
+        return true;
+      }
+    }
+
+    function showFinalResult() {
+      // Get the saved name from localStorage
+      var savedName = localStorage.getItem('user_name');
+
+      // Hide the loading page and show the final result
+      document.getElementById('loadingPage').style.display = 'none';
+      document.getElementById('loremIpsumPage').style.display = 'block';
+
+      // Display the final result
+      emuach(savedName);
+    }
+
+    function emuach(savedName) {
+      const waifu = ["Melif", "Nerva", "Sarah"];
+      const random = Math.floor(Math.random() * waifu.length);
+
+      // Display the final result
+      document.getElementById('loremIpsumPage').innerHTML =
+        '<div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12"><img src="https://play.tailwindcss.com/img/beams.jpg" alt="" class="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308"><div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div><div class="relative bg-white px-6 pb-8 pt-10 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"><div class="mx-auto max-w-md"><h2 class="font-bold text-2xl">Congrats!</h2><p class="text-sm">Your results are here</p><p>Final Result: ' + waifu[random] + ' 💞 ' + savedName + '</p><button class="bg-slate-700 text-white rounded-md w-28 mt-2 h-8" onclick="removeMydata()">Reset Nama</button>';
+
+      console.log("Waifu:", waifu[random], "Nama:", savedName);
+    }
+
+    function removeMydata() {
+      localStorage.clear();
+      alert("Data mu berhasil terhapus dari local storage!");
+      console.log("Data removed!");
+      window.location.href = "#";
+    }
+
+    // Check if the user's name is already saved in localStorage
+    var savedName = localStorage.getItem('user_name');
+    if (savedName) {
+      // Hide the nameForm and changeNameForm, show the loadingPage
+      document.getElementById('nameForm').style.display = 'none';
+      document.getElementById('changeNameForm').style.display = 'none';
+      document.getElementById('loremIpsumPage').style.display = 'none';
+      document.getElementById('loadingPage').style.display = 'block';
+
+      // Set a timer to display the final result after 5 seconds
+      setTimeout(showFinalResult, 5000);
+
+      // Optionally, display a welcome message
+      alert('Welcome back, ' + savedName + '!');
+    }
+  </script>
+
+</body>
+</html>
